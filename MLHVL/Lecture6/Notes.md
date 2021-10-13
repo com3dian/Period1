@@ -26,15 +26,17 @@
 
 [ ] Normalized dot product
 
+cosine
+
 [ ] Word association
 
 [ ] Analogy/Hyponymy
 
 https://en.wikipedia.org/wiki/Hyponymy_and_hypernymy
 
-[ ] contexts （上下文）
+[ ] contexts {上下文}
 
-[ ] corpora
+[ ] corpora 
 
 [ ] part of speech
 
@@ -46,7 +48,15 @@ https://en.wikipedia.org/wiki/Hyponymy_and_hypernymy
 
 [ ] Skip-gram
 
+https://zhuanlan.zhihu.com/p/27234078
 
+[ ] Fake Task
+
+[ ] Glove
+
+[ ] stemming
+
+[ ] Objective function
 
 ## Lecture
 
