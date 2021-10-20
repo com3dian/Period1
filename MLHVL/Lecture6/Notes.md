@@ -10,6 +10,12 @@
 
 -- [ ] relatedness
 
+-- [ ] analogy
+
+​		word analogy task{}
+
+​		
+
 [ ] Numerator/Denominator
 
 [ ] Positive PMI/PPMI
@@ -17,8 +23,6 @@
 [ ] token
 
 [ ] Zipf’s law
-
-[ ] semantic space
 
 -- [ ] Singular Value Decomposition
 
@@ -54,9 +58,17 @@ https://zhuanlan.zhihu.com/p/27234078
 
 [ ] Glove
 
+-- [ ] scalar distance {标量距离}
+
+-- [ ] sementic space
+
+[ ] syntactic
+
 [ ] stemming
 
 [ ] Objective function
+
+
 
 ## Lecture
 
