@@ -74,7 +74,7 @@ class GloVe(torch.nn.Module):
 
 
 glove = GloVe(vocab, 300)
-optimizer = torch.optim.Adagrad(glove.parameters(), lr=0.05)
+optimizer = torch.optim.Adam(glove.parameters(), lr=0.05)
 num_epochs = 300
 losses = []
 
@@ -104,10 +104,64 @@ for pair in [
     ("avada", "kedavra"), 
     ("hogwarts", "school"), 
     ("goblin", "hagrid"), 
-    ("giant", "hagrid")
+    ("giant", "hagrid"),
+    ("elf", "house")
 ]:
     
     print("Similarity between '{}' and '{}' is: {}".
           format(pair[0], pair[1], similarity(pair[0], pair[1], vocab, word_vectors)))
 
+import matplotlib.pyplot as plt
+# print(losses[:-5])
+plt.plot(losses)
+plt.show()
 
+def similarities(word_i: str, vocab: Dict[str, int], vectors: FloatTensor) -> FloatTensor:
+    ans = []
+    for j in vocab.keys():
+        ans.append(similarity(word_i, j, vocab, word_vectors))
+    return torch.FloatTensor(ans)
+
+def most_similar(word_i: str, vocab: Dict[str, int], vectors: FloatTensor, k: int) -> List[str]:
+    sims = similarities(word_i, vocab, vectors)
+    _, topi = sims.topk(dim=-1, k=k)
+    topi = topi.view(-1).cpu().numpy().tolist()
+    inv = {v: i for i, v in vocab.items()}
+    return [inv[i] for i in topi if inv[i] != word_i]
+
+for word in [
+    "forbidden", "myrtle", "gryffindor", "wand", "quidditch", "marauder",
+    "horcrux", "phoenix", "triwizard", "screaming", "letter"
+]:
+    print("Most similar words to '{}': {}".format(word, most_similar(word, vocab, word_vectors, 6)))
+
+def analogy(
+    word_a: str, word_b: str, word_c: str, vocab: Dict[str, int], vectors: FloatTensor, k: int
+) -> List[str]:
+    a, b, c = vocab[word_a], vocab[word_b], vocab[word_c]
+    v_a, v_b, v_c = vectors[a], vectors[b], vectors[c]
+    vector = v_b - v_a + v_c
+    ans = []
+    for word_j in vocab.keys():
+        j = vocab[word_j] 
+        v_j = vectors[j] / torch.norm(vectors[j], p=2)
+        ans.append(torch.mm(vector/torch.norm(vector, p=2).view(-1, 1), v_j.view(-1, 1)).item())
+    
+    sims = torch.FloatTensor(ans)
+    _, topi = sims.topk(dim=-1, k=k)
+    topi = topi.view(-1).cpu().numpy().tolist()
+    inv = {v: i for i, v in vocab.items()}
+    return [inv[i] for i in topi if inv[i] != word_c]
+
+triplets = [("padma", "parvati", "fred"),
+            ("avada", "kedavra", "expecto"),
+            ("dungeon", "slytherin", "tower"),
+            ("scabbers", "ron", "hedwig"),
+            ("ron", "molly", "draco"),
+            ("durmstrang", "viktor", "beauxbatons"),
+            ("snape", "potions", "trelawney"),
+            ("harry", "seeker", "ron")
+           ]
+
+for a, b, c in triplets:
+    print("'{}' is to '{}' as '{}' is to {}".format(a, b, c, analogy(a, b, c, vocab, word_vectors, 6)))
