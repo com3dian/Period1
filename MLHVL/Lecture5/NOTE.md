@@ -42,6 +42,12 @@ log_2 \frac{P(x, y)}{P(x)P(y)}
 $$
 [ ] count based model
 
+```
+GloVe
+```
+
+[ ] Predict-based models
+
 [ ] Basic frequency model
 
 

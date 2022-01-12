@@ -24,6 +24,11 @@
 
 [ ] Zipf’s law
 
+```
+a few words are very common, but a large majority of words are rare or very infrequent in data.
+
+```
+
 -- [ ] Singular Value Decomposition
 
 -- [ ] Principle Component Analysis
@@ -34,13 +39,13 @@ cosine
 
 [ ] Word association
 
-[ ] Analogy/Hyponymy
+[ ] Analogy/Hyponymy{类比/下级类别}
 
 https://en.wikipedia.org/wiki/Hyponymy_and_hypernymy
 
 [ ] contexts {上下文}
 
-[ ] corpora 
+[ ] corpora{语料库}
 
 [ ] part of speech
 
